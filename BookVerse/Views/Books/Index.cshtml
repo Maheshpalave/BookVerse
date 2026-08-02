@@ -1,13 +1,73 @@
-﻿@{
+﻿@model IEnumerable<BookVerse.Models.Book>
+
+@{
     ViewData["Title"] = "Books";
 }
 
-<div class="text-center">
-    <h1>📚 Welcome to BookVerse</h1>
+<div class="container mt-5">
 
-    <h3>Books Page</h3>
+    <div class="text-center mb-4">
+        <h1>📚 BookVerse Books</h1>
+        <p class="lead">Explore our collection of books</p>
+    </div>
 
-    <p>This is my first custom page in ASP.NET Core MVC.</p>
+    <div class="text-end mb-4">
+        <a asp-action="Create" class="btn btn-success">
+            ➕ Add New Book
+        </a>
+    </div>
 
-    <button class="btn btn-primary">Read Books</button>
+    <div class="row">
+        @foreach (var book in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+
+                    <div class="card-body">
+
+                        <h4 class="card-title">
+                            @book.Title
+                        </h4>
+
+                        <p class="card-text">
+                            <strong>Author:</strong> @book.Author
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Category:</strong> @book.Category
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Rating:</strong> ⭐ @book.Rating
+                        </p>
+
+                        <div class="d-flex gap-2 flex-wrap">
+
+                            <a asp-action="Details"
+                               asp-route-id="@book.Id"
+                               class="btn btn-primary">
+                                📖 Read Now
+                            </a>
+
+                            <a asp-action="Edit"
+                               asp-route-id="@book.Id"
+                               class="btn btn-warning">
+                                ✏️ Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@book.Id"
+                               class="btn btn-danger">
+                                🗑️ Delete
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
 </div>

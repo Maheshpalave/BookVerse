@@ -1,0 +1,48 @@
+﻿@model BookVerse.Models.Book
+
+@{
+    ViewData["Title"] = "Book Details";
+}
+
+<div class="container mt-5">
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h1 class="mb-4">📖 @Model.Title</h1>
+
+            <h4>
+                Author:
+                <span class="text-muted">@Model.Author</span>
+            </h4>
+
+            <p>
+                <strong>Category:</strong>
+                @Model.Category
+            </p>
+
+            <p>
+                <strong>Rating:</strong>
+                ⭐ @Model.Rating
+            </p>
+
+            <hr />
+
+            <h5>Description</h5>
+
+            <p>
+                @Model.Description
+            </p>
+
+            <a asp-controller="Books"
+               asp-action="Index"
+               class="btn btn-secondary">
+                ← Back to Books
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
