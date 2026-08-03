@@ -13,7 +13,7 @@
 
     <div class="text-end mb-4">
         <a asp-action="Create" class="btn btn-success">
-            ➕ Add Category
+            ➕ Add New Category
         </a>
     </div>
 
@@ -24,19 +24,31 @@
             <div class="col-md-4 mb-4">
 
                 <div class="card shadow-sm h-100">
-                    <div class="card-body text-center">
+
+                    <div class="card-body">
 
                         <h4 class="card-title">
-                            📚 @category.Name
+                            🏷️ @category.Name
                         </h4>
 
-                        <a asp-controller="Books"
-                           asp-action="Index"
-                           asp-route-searchString="@category.Name"
-                           class="btn btn-primary">
-                            📚 View Books
-                        </a>
+                        <div class="mt-3">
+
+                            <a asp-action="Edit"
+                               asp-route-id="@category.Id"
+                               class="btn btn-warning">
+                                ✏️ Edit
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@category.Id"
+                               class="btn btn-danger">
+                                🗑️ Delete
+                            </a>
+
+                        </div>
+
                     </div>
+
                 </div>
 
             </div>
