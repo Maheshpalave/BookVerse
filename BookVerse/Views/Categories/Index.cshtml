@@ -1,0 +1,47 @@
+﻿@model IEnumerable<BookVerse.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+        <h1>🏷️ Book Categories</h1>
+        <p class="lead">Explore books by category</p>
+    </div>
+
+    <div class="text-end mb-4">
+        <a asp-action="Create" class="btn btn-success">
+            ➕ Add Category
+        </a>
+    </div>
+
+    <div class="row">
+
+        @foreach (var category in Model)
+        {
+            <div class="col-md-4 mb-4">
+
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+
+                        <h4 class="card-title">
+                            📚 @category.Name
+                        </h4>
+
+                        <a asp-controller="Books"
+                           asp-action="Index"
+                           asp-route-searchString="@category.Name"
+                           class="btn btn-primary">
+                            📚 View Books
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

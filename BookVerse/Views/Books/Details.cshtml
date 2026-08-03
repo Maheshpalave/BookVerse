@@ -6,40 +6,91 @@
 
 <div class="container mt-5">
 
+    <div class="text-center mb-4">
+        <h1>📖 Book Details</h1>
+        <p class="lead">Explore complete information about this book</p>
+    </div>
+
     <div class="card shadow-sm">
 
         <div class="card-body">
 
-            <h1 class="mb-4">📖 @Model.Title</h1>
+            <div class="row">
 
-            <h4>
-                Author:
-                <span class="text-muted">@Model.Author</span>
-            </h4>
+                <!-- Cover Image -->
+                <div class="col-md-4 text-center">
 
-            <p>
-                <strong>Category:</strong>
-                @Model.Category
-            </p>
+                    @if (!string.IsNullOrEmpty(Model.CoverImage))
+                    {
+                        <img src="~/images/@Model.CoverImage"
+                             class="img-fluid rounded shadow-sm"
+                             style="max-height:400px;"
+                             alt="@Model.Title" />
+                    }
+                    else
+                    {
+                        <div class="border rounded p-5">
+                            📚
+                            <p class="mt-2">No Cover Image</p>
+                        </div>
+                    }
 
-            <p>
-                <strong>Rating:</strong>
-                ⭐ @Model.Rating
-            </p>
+                </div>
 
-            <hr />
+                <!-- Book Information -->
+                <div class="col-md-8">
 
-            <h5>Description</h5>
+                    <h1 class="mb-4">
+                        @Model.Title
+                    </h1>
 
-            <p>
-                @Model.Description
-            </p>
+                    <p>
+                        <strong>Author:</strong>
+                        @Model.Author
+                    </p>
 
-            <a asp-controller="Books"
-               asp-action="Index"
-               class="btn btn-secondary">
-                ← Back to Books
-            </a>
+                    <p>
+                        <strong>Category:</strong>
+                        @Model.Category
+                    </p>
+
+                    <p>
+                        <strong>Rating:</strong>
+                        ⭐ @Model.Rating / 5
+                    </p>
+
+                    <hr />
+
+                    <h4>Description</h4>
+
+                    <p>
+                        @Model.Description
+                    </p>
+
+                    <div class="mt-4">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-warning">
+                            ✏️ Edit
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-danger">
+                            🗑️ Delete
+                        </a>
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary">
+                            ← Back to Books
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 

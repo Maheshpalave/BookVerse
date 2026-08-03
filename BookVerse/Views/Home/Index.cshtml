@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<BookVerse.Models.Book>
+
+@{
     ViewData["Title"] = "Home";
 }
 
@@ -17,56 +19,74 @@
     </p>
 
     <div class="mt-4">
-        <button class="btn btn-primary btn-lg">
-            Read Books
-        </button>
 
-        <button class="btn btn-success btn-lg ms-2">
-            Become Author
-        </button>
+        <a asp-controller="Books"
+           asp-action="Index"
+           class="btn btn-primary btn-lg">
+            📚 Read Books
+        </a>
+
+        <a asp-controller="Register"
+           asp-action="Index"
+           class="btn btn-success btn-lg ms-2">
+            ✍️ Become Author
+        </a>
+
     </div>
 
 </div>
+
 <hr class="my-5" />
 
 <div class="container">
 
-    <h2 class="text-center mb-4">📚 Featured Books</h2>
+    <h2 class="text-center mb-4">
+        📚 Featured Books
+    </h2>
 
     <div class="row">
 
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Atomic Habits</h5>
-                    <p class="card-text">By James Clear</p>
-                    <p>⭐⭐⭐⭐⭐</p>
-                    <button class="btn btn-primary">Read Now</button>
-                </div>
-            </div>
-        </div>
+        @foreach (var book in Model)
+        {
+            <div class="col-md-4 mb-4">
 
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Rich Dad Poor Dad</h5>
-                    <p class="card-text">By Robert Kiyosaki</p>
-                    <p>⭐⭐⭐⭐⭐</p>
-                    <button class="btn btn-primary">Read Now</button>
-                </div>
-            </div>
-        </div>
+                <div class="card h-100 shadow-sm">
 
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Wings of Fire</h5>
-                    <p class="card-text">By A.P.J. Abdul Kalam</p>
-                    <p>⭐⭐⭐⭐⭐</p>
-                    <button class="btn btn-primary">Read Now</button>
+                    @if (!string.IsNullOrEmpty(book.CoverImage))
+                    {
+                        <img src="~/images/@book.CoverImage"
+                             class="card-img-top"
+                             style="height:250px; object-fit:cover;"
+                             alt="@book.Title" />
+                    }
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+                            @book.Title
+                        </h5>
+
+                        <p class="card-text">
+                            <strong>Author:</strong> @book.Author
+                        </p>
+
+                        <p>
+                            ⭐ @book.Rating
+                        </p>
+
+                        <a asp-controller="Books"
+                           asp-action="Details"
+                           asp-route-id="@book.Id"
+                           class="btn btn-primary">
+                            📖 Read Now
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
-        </div>
+        }
 
     </div>
 

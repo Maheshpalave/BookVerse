@@ -14,11 +14,22 @@ namespace BookVerse.Controllers
             _context = context;
         }
 
-        // Show all books
-        public async Task<IActionResult> Index()
+        // Show all books + Search
+        public async Task<IActionResult> Index(string searchString)
         {
-            var books = await _context.Books.ToListAsync();
-            return View(books);
+            var books = _context.Books.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(b =>
+                    b.Title.Contains(searchString) ||
+                    b.Author.Contains(searchString) ||
+                    b.Category.Contains(searchString));
+            }
+
+            ViewData["SearchString"] = searchString;
+
+            return View(await books.ToListAsync());
         }
 
         // Show book details
