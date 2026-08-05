@@ -17,9 +17,34 @@ namespace BookVerse.Controllers
         // Show all categories
         public async Task<IActionResult> Index()
         {
-            var categories = await _context.Categories.ToListAsync();
+            var categories = await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
 
             return View(categories);
+        }
+
+        // Show books belonging to a category
+        public async Task<IActionResult> Books(int id)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var categoryName = category.Name.Trim().ToLower();
+
+            var books = await _context.Books
+                .Where(b => b.Category != null &&
+                            b.Category.Trim().ToLower() == categoryName)
+                .ToListAsync();
+
+            ViewBag.CategoryName = category.Name;
+
+            return View(books);
         }
 
         // Show Create Category form

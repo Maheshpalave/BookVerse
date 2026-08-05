@@ -48,8 +48,12 @@ namespace BookVerse.Controllers
 
         // Show Create Book form
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.Categories = await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+
             return View();
         }
 
@@ -66,6 +70,10 @@ namespace BookVerse.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.Categories = await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
+
             return View(book);
         }
 
@@ -79,6 +87,10 @@ namespace BookVerse.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.Categories = await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
 
             return View(book);
         }
@@ -100,6 +112,10 @@ namespace BookVerse.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Categories = await _context.Categories
+                .OrderBy(c => c.Name)
+                .ToListAsync();
 
             return View(book);
         }
